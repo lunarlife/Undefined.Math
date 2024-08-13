@@ -1,7 +1,10 @@
 using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
-namespace Undefined.Math;
+namespace Undefined.Math.Vectors;
 
+[StructLayout(LayoutKind.Sequential)]
 public struct Vector2<T> : IVector<T> where T : INumber<T>
 {
     public static readonly Vector2<T> Zero = new(T.Zero, T.Zero);
@@ -15,6 +18,7 @@ public struct Vector2<T> : IVector<T> where T : INumber<T>
     public int Dimension => 2;
 
     public T X;
+
     public T Y;
 
     public Vector2(T x, T y)
@@ -24,6 +28,8 @@ public struct Vector2<T> : IVector<T> where T : INumber<T>
     }
 
     public T[] AsArray() => [X, Y];
+
+
 
     public T Length()
     {
@@ -58,6 +64,7 @@ public struct Vector2<T> : IVector<T> where T : INumber<T>
         return (v1.X - v2.X) * (v1.X - v2.X) + (v1.Y - v2.Y) * (v1.Y - v2.Y);
     }
 
+    public unsafe Span<T> AsSpan() => new(Unsafe.AsPointer(ref this), Dimension);
     public override bool Equals(object? obj) => obj is Vector2<T> other && Equals(other);
 
     public override int GetHashCode() => HashCode.Combine(X, Y);

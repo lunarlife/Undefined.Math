@@ -1,6 +1,7 @@
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
-namespace Undefined.Math;
+namespace Undefined.Math.Vectors;
 
 public struct Vector3<T> : IVector<T> where T : INumber<T>
 {
@@ -12,6 +13,7 @@ public struct Vector3<T> : IVector<T> where T : INumber<T>
     public static readonly Vector3<T> Down = new(T.Zero, -T.One);
     public static readonly Vector3<T> Forward = new(T.Zero, T.Zero, T.One);
     public static readonly Vector3<T> Backward = new(T.Zero, T.Zero, -T.One);
+
     public int Dimension => 3;
 
     public T X;
@@ -73,13 +75,15 @@ public struct Vector3<T> : IVector<T> where T : INumber<T>
     public Vector3<T> Offset(T x, T y, T z) => new(X + x, Y + y, Z + z);
     public Vector3<T> Offset(Vector3<T> offset) => Offset(offset.X, offset.Y, offset.Z);
     public Vector3<T> DirectionTo(Vector3<T> position) => (position - this).Normalized();
-
+ 
     public float DistanceSqr(Vector3<T> other)
     {
         var v1 = (Vector3<float>)this;
         var v2 = (Vector3<float>)other;
         return (v1.X - v2.X) * (v1.X - v2.X) + (v1.Y - v2.Y) * (v1.Y - v2.Y) + (v1.Z - v2.Z) * (v1.Z - v2.Z);
     }
+
+    public unsafe Span<T> AsSpan() => new(Unsafe.AsPointer(ref this), Dimension);
     public bool Equals(Vector3<T> other) => EqualityComparer<T>.Default.Equals(X, other.X) &&
                                             EqualityComparer<T>.Default.Equals(Y, other.Y) &&
                                             EqualityComparer<T>.Default.Equals(Z, other.Z);
@@ -98,7 +102,8 @@ public struct Vector3<T> : IVector<T> where T : INumber<T>
     public static implicit operator Vector3<float>(Vector3<T> vector) =>
         new(Convert.ToSingle(vector.X), Convert.ToSingle(vector.Y), Convert.ToSingle(vector.Z));
 
-    public static implicit operator Vector3<int>(Vector3<T> vector) => new(Mathe.Floor(Convert.ToDouble(vector.X)), Mathe.Floor(Convert.ToDouble(vector.Y)), Mathe.Floor(Convert.ToDouble(vector.Z)));
+    public static implicit operator Vector3<int>(Vector3<T> vector) => new(Mathe.Floor(Convert.ToDouble(vector.X)),
+        Mathe.Floor(Convert.ToDouble(vector.Y)), Mathe.Floor(Convert.ToDouble(vector.Z)));
 
     public static bool operator >(Vector3<T> left, Vector3<T> right) =>
         left.X > right.X || left.Y > right.Y || left.Z > right.Z;

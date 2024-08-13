@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Numerics;
+using Undefined.Math.Vectors;
+using Undefined.Verify;
 
-namespace SkyBots.Api.Mathematics;
+namespace Undefined.Math;
 
 public readonly struct Cube<T> : IEnumerable<Vector3<T>> where T : INumber<T>
 {
@@ -10,9 +12,9 @@ public readonly struct Cube<T> : IEnumerable<Vector3<T>> where T : INumber<T>
 
     public Cube(Vector3<T> position, T width, T height, T length)
     {
-        Preconditions.Min(width, T.Zero, nameof(width));
-        Preconditions.Min(height, T.Zero, nameof(height));
-        Preconditions.Min(length, T.Zero, nameof(length));
+        Verifying.Min(width, T.Zero, nameof(width));
+        Verifying.Min(height, T.Zero, nameof(height));
+        Verifying.Min(length, T.Zero, nameof(length));
         Start = position;
         End = new Vector3<T>(position.X + width, position.Y + height, position.Z + length);
     }
@@ -55,6 +57,7 @@ public readonly struct Cube<T> : IEnumerable<Vector3<T>> where T : INumber<T>
             result = new Cube<T>();
             return false;
         }
+
         result = Intersection(other);
         return true;
     }

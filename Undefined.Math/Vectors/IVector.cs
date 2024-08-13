@@ -1,13 +1,14 @@
 using System.Numerics;
 
-namespace Undefined.Math;
+namespace Undefined.Math.Vectors;
 
 public interface IVector
 {
     public int Dimension { get; }
 }
 
-public interface IVector<out T> : IVector where T : INumber<T>
+public interface IVector<T> : IVector where T : INumber<T>
 {
     public T[] AsArray();
+    public Span<T> AsSpan();
 }

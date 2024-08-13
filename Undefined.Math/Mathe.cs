@@ -1,6 +1,7 @@
 using System.Numerics;
+using Undefined.Math.Vectors;
 
-namespace SkyBots.Api.Mathematics;
+namespace Undefined.Math;
 
 public static class Mathe
 {
@@ -22,7 +23,7 @@ public static class Mathe
         new(Clamp(value.X, min.X, max.X), Clamp(value.Y, min.Y, max.Y), Clamp(value.Z, min.Z, max.Z));
 
     public static double ToRadians(double degrees) => 0.017453292519943295d * degrees;
-    public static float ToDegrees(double radians) => (float)(radians * 180d / Math.PI);
+    public static float ToDegrees(double radians) => (float)(radians * 180d / System.Math.PI);
 
     public static T Min<T>(T value1, T value2) where T : INumber<T> => value1 < value2 ? value1 : value2;
     public static T Max<T>(T value1, T value2) where T : INumber<T> => value1 > value2 ? value1 : value2;

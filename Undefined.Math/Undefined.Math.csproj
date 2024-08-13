@@ -1,10 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <TargetFrameworks>net7.0;net8.0;net9.0</TargetFrameworks>
+
+        <Title>Undefined.Math</Title>
+        <Authors>LunarLife</Authors>
+        <Copyright>Copyright © LunarLife 2024</Copyright>
+        <PackageProjectUrl>https://github.com/lunarlife/Undefined.Math</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/lunarlife/Undefined.Math</RepositoryUrl>
+        <PackageTags>math vector number</PackageTags>
+        <Version>1.0.0</Version>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Undefined.Verify" Version="2.0.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="../LICENSE" Pack="true" PackagePath=""/>
+        <None Include="../README.md" Pack="true" PackagePath=""/>
+    </ItemGroup>
 </Project>
